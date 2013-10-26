@@ -1,0 +1,6 @@
+syn keyword CTagsMember epsilon s points x0
+syn keyword CTagsFunction random_uint16 random_uint getLastPoint random_int16 Wolfe arrayInfo random_char random_char_int getGradient random_int8 random_uint8 rand_init random_uint64 main random_double random_int32 BFGS run transpose random_boolean random_long random_double_uniform mult Optimiseur getPoints computeMatrix getValue random_int64 random_ulong random_int random_float scalarProduct random_uint32 random_float_uniform
+syn keyword CTagsType Vector Matrix
+syn keyword CTagsDefinedName SIMULATEUR_H TYPES_H BFGS_H DOUBLE_INFINITY OPTIMISEUR_H FUNCS_H
+syn keyword CTagsClass BFGS Rosenbrock Optimiseur Simulateur
+
