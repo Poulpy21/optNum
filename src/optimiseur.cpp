@@ -19,26 +19,24 @@ double Optimiseur::Wolfe(Vector &x0, Vector &d, double m1, double m2) {
 	Vector x(dim);
 	
 	t = 1.0;
+
 	tg = 0.0;
 	td = DOUBLE_INFINITY;
 	
 	q0 = s->getValue(x0);
-	dq0 = scalarProduct(s->getGradient(x0), transpose(d)); 
-
-	x = x0 + t * d;
+	dq0 = scalarProduct(transpose(s->getGradient(x0)), d); 
 	
-	cout << "\n\n\nWOLFE\n\n\n";
-	cout << "x = x0 + t * d\nx = " << x << "\nx0 = " << x0 << "\nt = " << t << "\nd = " << d;
-
-	q = s->getValue(x);
-	dq = scalarProduct(transpose(s->getGradient(x)), d); 
-
 	while(1) {
 		
-		if ((q <= q0 + m1 * t * q0) && (dq >= m2 * dq0)) {
+		x = x0 + t * d;
+		
+		q = s->getValue(x);
+		dq = scalarProduct(transpose(s->getGradient(x)), d); 
+
+		if ((q <= q0 + m1 * t * dq0) && (dq >= m2 * dq0)) {
 				break;
 		}
-		else if (dq > q0 + m1 * t * dq0) { 
+		else if (q > q0 + m1 * t * dq0) { 
 			td = t;
 		}
 		else {
@@ -46,26 +44,21 @@ double Optimiseur::Wolfe(Vector &x0, Vector &d, double m1, double m2) {
 		}
 		
 		if (td == DOUBLE_INFINITY) 
-			t = 2*tg;
+			t = 10*tg;
 		else 
 			t = (tg + td)/2.0;
-
-		x = x0 + t * d;
-
-		q = s->getValue(x);
-		dq = scalarProduct(transpose(s->getGradient(x)), d); 
 	}
 
 	return t;	
 }
 
 
-std::list<Vector *> Optimiseur::getPoints() {
+std::queue<Vector> Optimiseur::getPoints() {
 
 	return this->points;
 }
 
-Vector *Optimiseur::getLastPoint() {
+Vector Optimiseur::getLastPoint() {
 
 	return this->points.back();
 }

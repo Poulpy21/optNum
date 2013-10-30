@@ -13,6 +13,8 @@ Vector transpose(const Vector v);
 
 double scalarProduct(const Vector &v1, const Vector &v2);
 
+Matrix inverseMatrix(const Matrix &M);
+
 void arrayInfo(const Array<double, 2> &a);
 
 #endif

@@ -1,5 +1,8 @@
 
 #include "funcs.h"
+#include <gsl/gsl_matrix.h>
+#include <gsl/gsl_linalg.h>
+#include <gsl/gsl_cblas.h>
 
 void arrayInfo(const Matrix &a) {
 	
@@ -47,3 +50,27 @@ Vector transpose(const Vector v) {
 
 	return v.transpose(1,0);
 }
+
+Matrix inverseMatrix(const Matrix &M) {
+	
+	TinyVector<int,2> dim = M.shape();
+	unsigned int n = dim(0);
+
+	if (dim(0) != dim(1)) {
+		cout << "Inversion d'une matrice non carrée !";
+		assert(false);
+	}
+
+	Matrix W = Matrix(dim);
+
+	int s;
+	gsl_matrix m = gsl_matrix_view_array((double *)M.data(), n, n).matrix;
+	gsl_matrix w = gsl_matrix_view_array((double *)W.data(), n, n).matrix;
+
+	gsl_permutation *perm = gsl_permutation_alloc (n);
+	gsl_linalg_LU_decomp (&m, perm, &s);
+	gsl_linalg_LU_invert (&m, perm, &w);
+
+	return W;
+}
+

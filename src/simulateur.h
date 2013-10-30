@@ -17,6 +17,7 @@ class Simulateur {
 	public:
 		virtual double getValue(const Vector &x) = 0;
 		virtual Vector getGradient(const Vector &x) = 0;
+		virtual Matrix getHessian(const Vector &x) = 0;
 };
 	
 #endif

@@ -1,22 +1,22 @@
 
-
 #include <list>
+#include <blitz/array.h>
+
 #include "simulateur.h"
 #include "types.h"
 
-#ifndef NEWTON_H
-#define NEWTON_H
+#ifndef GRADIENT_H
+#define GRADIENT_H
 
-#include <blitz/array.h>
 
-class Newton : public Optimiseur
+class Gradient : public Optimiseur
 
 {
 	
 	public:
 		double t;
 
-		Newton(Vector x0, double t, Simulateur *s, double epsilon) : Optimiseur(x0, s, epsilon) { 
+		Gradient(Vector x0, double t, Simulateur *s, double epsilon) : Optimiseur(x0, s, epsilon) { 
 			
 			this->t = t;
 		};
@@ -41,12 +41,10 @@ class Newton : public Optimiseur
 				points.push(*xx);
 				
 				g = s->getGradient(x);
+				d = -g;
 				
-				d = - mult(inverseMatrix(s->getHessian(x)), g);
+				t = Wolfe(x, d); 
 				
-				//t = Wolfe(x, d); 
-				
-				cout << "\n" << x << " f(x) = " << s->getValue(x) << " ||g||^2 = " << scalarProduct(g,transpose(g));
 				x = x + t*d;
 			}	
 			

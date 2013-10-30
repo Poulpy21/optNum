@@ -9,11 +9,11 @@ AS = nasm
 ASFLAGS= -f elf64
 
 #LDFLAGS= -lGL -lGLU -lglfw3 -lGLEW -lX11 -lXxf86vm -lXrandr -lpthread -lXi
-LDFLAGS = -lblitz -lplplotcxxd
+LDFLAGS = -lblitz -lplplotcxxd -lgsl -lgslcblas
 LDPOSTFLAGS= 
 
 DEBUGFLAGS= -g -O0
-PROFILINGFLAGS= -pg
+PROFILINGFLAGS= -O3 -pg
 RELEASEFLAGS= -O3
 
 SRCDIR = src/

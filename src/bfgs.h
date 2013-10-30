@@ -30,20 +30,18 @@ class BFGS : public Optimiseur
 			W = (i == j);	
 			
 			xk = x0;
-			gk = s->getGradient(xk);
-
+			gk = s->getGradient(x0);
+			
 			while(scalarProduct(gk,transpose(gk)) > epsilon) {
 				
-				points.push_back(&xk);
-				
+				points.push(*new Vector(xk));
+
 				dk = - mult(W, gk);
-				cout << "\n dk = " << dk;
 				
 				tk = Wolfe(xk, dk);
 
 				xk1 = xk + tk * dk;
 				gk1 = s->getGradient(xk1);
-				cout << "\nt = " << tk << " f = " << s->getValue(xk1);
 
 				sk = xk1 - xk;
 				yk = gk1 - gk;
@@ -52,9 +50,11 @@ class BFGS : public Optimiseur
 				
 				xk = xk1;
 				gk = gk1;
+
+				cout << " f(x) = " << s->getValue(xk);
 			}	
 				
-			points.push_back(&xk);
+			points.push(* new Vector(xk));
 		}
 
 	private:
@@ -62,9 +62,12 @@ class BFGS : public Optimiseur
 
 			double p = scalarProduct(transpose(y), s); 
 			
+			cout << "\n\n" << W;
+
 			W = W 
 				- (mult(s,mult(transpose(y), W)) + mult(mult(W, y),transpose(s)))/p +
 				+ (1 + mult(transpose(y), mult(W, y)) / p) * scalarProduct(transpose(s), s) / p;
+
 		}
 		
 };
