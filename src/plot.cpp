@@ -52,11 +52,12 @@ plot::plot(Simulateur *s, bool logDraw, int ptx, int pty, int nlevel, float xmin
 	pls->scmap1n( 256 );
 	pls->scmap1l( false, 2, b, h, l, p);
 	/////////////:
-
+	
+	pls->scolbg(255,255,255);
 	pls->init();
+	pls->col0(9);
 
 
-	pls->col0(1);
 
 	lzm = zmin;
 	lzM = zmax;
@@ -69,7 +70,7 @@ plot::plot(Simulateur *s, bool logDraw, int ptx, int pty, int nlevel, float xmin
 		clevel[i] = lzm + ( lzM - lzm ) / ( nlevel - 1 ) * i;
 
 	pls->env0( xmin, xmax, ymin, ymax, 2, 0 );
-	pls->col0( 15 );
+	pls->col0( 9 );
 	pls->lab( "X", "Y", titre );
 	pls->shades( z, ptx, pty, NULL, xmin, xmax, ymin, ymax,
 			clevel, nlevel, 1.0, 0, 1.0, pls->fill, true, NULL, NULL );
@@ -82,6 +83,7 @@ plot::plot(Simulateur *s, bool logDraw, int ptx, int pty, int nlevel, float xmin
 	pls->line(ptopt, xopt, yopt );
 
 	char buffer[50];
+	pls->col0(9);
 	sprintf(buffer, "Nombre d'iterations : %i", nbIterations);
 	pls->ptex( xmin + (xmax-xmin)/2, 0.9*ymax, 1,0, 0.5, buffer);
 	
