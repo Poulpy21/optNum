@@ -2,7 +2,7 @@
 
 #include "plot.h"
 
-plot::plot(Simulateur *s, bool logDraw, int ptx, int pty, int nlevel, float xmin, float xmax, float ymin, float ymax, queue<Vector> optimPts) {
+plot::plot(Simulateur *s, bool logDraw, int ptx, int pty, int nlevel, float xmin, float xmax, float ymin, float ymax, list<Vector> optimPts, char *titre, int nbIterations) {
 
 	this->s = s;
 	this->logDraw = logDraw;
@@ -70,7 +70,7 @@ plot::plot(Simulateur *s, bool logDraw, int ptx, int pty, int nlevel, float xmin
 
 	pls->env0( xmin, xmax, ymin, ymax, 2, 0 );
 	pls->col0( 15 );
-	pls->lab( "X", "Y", "lol" );
+	pls->lab( "X", "Y", titre );
 	pls->shades( z, ptx, pty, NULL, xmin, xmax, ymin, ymax,
 			clevel, nlevel, 1.0, 0, 1.0, pls->fill, true, NULL, NULL );
 
@@ -81,6 +81,10 @@ plot::plot(Simulateur *s, bool logDraw, int ptx, int pty, int nlevel, float xmin
 	pls->col0(1);
 	pls->line(ptopt, xopt, yopt );
 
+	char buffer[50];
+	sprintf(buffer, "Nombre d'iterations : %i", nbIterations);
+	pls->ptex( xmin + (xmax-xmin)/2, 0.9*ymax, 1,0, 0.5, buffer);
+	
 	delete pls;
 }
 
@@ -159,7 +163,7 @@ void plot::averageNan() {
 	}
 }
 
-void plot::generateOptimPoints(queue<Vector> pointList) {
+void plot::generateOptimPoints(list<Vector> pointList) {
 
 	PLFLT *xi, *yi;
 	Vector v = Vector(2,1);
@@ -168,14 +172,13 @@ void plot::generateOptimPoints(queue<Vector> pointList) {
 	xi = xopt = new PLFLT[ptopt];
 	yi = yopt = new PLFLT[ptopt];
 	
-	while(!pointList.empty()) {
-		v = pointList.front();
+	for(list<Vector>::iterator it = pointList.begin(); it != pointList.end(); it++) {
+		v = *it;
 
 		*xi = (PLFLT) v(0,0);
 		*yi = (PLFLT) v(1,0);
 
 		xi++; yi++;
-		pointList.pop();
 	}
 
 

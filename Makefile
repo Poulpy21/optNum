@@ -1,5 +1,5 @@
 
-CC=gcc
+CC=g++
 CFLAGS= -W -Wall -Wextra -pedantic -std=c99
 
 CXX=g++

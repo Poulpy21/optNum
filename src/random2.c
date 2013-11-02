@@ -2,6 +2,7 @@
 #include <time.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include "random2.h"
 
 void rand_init(void) {
 	srand(time(NULL));
@@ -85,7 +86,7 @@ uint64_t random_uint64(uint64_t a, uint64_t b) {
 /*Renvoie une string de int alétoire*/
 char *random_char(int longueur)
 {
-	char *chaine = malloc((longueur + 1) * sizeof(char));
+	char *chaine = (char*) malloc((longueur + 1) * sizeof(char));
 
 	for (int i = 0; i < longueur; i++) { 
 		chaine[i] = (char) (rand() % 26 + 'a');		
@@ -99,7 +100,7 @@ char *random_char(int longueur)
 /*Renvoie une chaine de caractère aléatoire*/
 char *random_char_int(int longueur)
 {
-	char *chaine = malloc((longueur + 1) * sizeof(char));
+	char *chaine = (char*) malloc((longueur + 1) * sizeof(char));
 	for (int i = 0; i < longueur; i++) { 
 		chaine[i] = (char) (rand() % 10 + '0');		
 	}

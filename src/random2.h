@@ -1,8 +1,10 @@
 
-#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
+
+#ifndef RANDOM2_H
+#define RANDOM2_H
 
 /*
 FICHIER RANDOM.H
@@ -11,7 +13,7 @@ Librairie de random
 
 
 /*Initialise la seed*/
-void rand_init(void);
+void rand_init();
 
 /*Renvoie un float/double aléatoire entre 0.0 et 1.0*/
 float random_float_uniform();
@@ -47,3 +49,4 @@ char *random_char_int(int longueur);
 /*Renvoie une chaine de caractère aléatoire*/
 char *random_char(int longueur);
 
+#endif

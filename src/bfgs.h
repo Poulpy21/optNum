@@ -14,27 +14,34 @@ class BFGS : public Optimiseur
 {
 	
 	public:
-		BFGS(Vector x0, Simulateur *s, double epsilon) : Optimiseur(x0, s, epsilon) { };
+		BFGS(Simulateur *s) : Optimiseur(s) { };
 
-		void run() {
+		bool run(Vector x0, double epsilon, int nbIterationsMax) {
+
+			delete points;
+			points = new list<Vector>;
 		
+			nbIterations = 0;
+			clock_t start, end;
+			
+			start = clock();
+		
+
 			TinyVector<int,2> dim = x0.shape();
 			Vector xk(dim), xk1(dim), dk(dim), gk(dim), gk1(dim), sk(dim), yk(dim);
-			
 			double tk;
 
 			firstIndex i;
 			secondIndex j;
-			
 			Matrix W(x0.size(), x0.size());
 			W = (i == j);	
 			
 			xk = x0;
 			gk = s->getGradient(x0);
 			
-			while(scalarProduct(gk,transpose(gk)) > epsilon) {
+			while(scalarProduct(gk,transpose(gk)) > epsilon && nbIterations < nbIterationsMax) {
 				
-				points.push(*new Vector(xk));
+				points->push_back(*new Vector(xk));
 
 				dk = - mult(W, gk);
 				
@@ -51,10 +58,15 @@ class BFGS : public Optimiseur
 				xk = xk1;
 				gk = gk1;
 
-				cout << " f(x) = " << s->getValue(xk);
+				nbIterations++;
 			}	
 				
-			points.push(* new Vector(xk));
+			points->push_back(* new Vector(xk));
+			
+			end = clock();
+			duree = (double) (end - start);
+
+			return (nbIterations <= nbIterationsMax);	
 		}
 
 	private:

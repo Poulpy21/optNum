@@ -3,11 +3,11 @@
 #include "funcs.h"
 #include <unistd.h>
 #include <blitz/array.h>
+#include <time.h>
 
-Optimiseur::Optimiseur(Vector x0, Simulateur *s, double epsilon) : x0(x0){
-
+Optimiseur::Optimiseur(Simulateur *s) {
 	this->s = s;
-	this->epsilon = epsilon;
+	this->points = new list<Vector>;
 }
 
 double Optimiseur::Wolfe(Vector &x0, Vector &d, double m1, double m2) {
@@ -53,12 +53,20 @@ double Optimiseur::Wolfe(Vector &x0, Vector &d, double m1, double m2) {
 }
 
 
-std::queue<Vector> Optimiseur::getPoints() {
+std::list<Vector> Optimiseur::getPoints() {
 
-	return this->points;
+	return *this->points;
 }
 
 Vector Optimiseur::getLastPoint() {
 
-	return this->points.back();
+	return this->points->back();
+}
+
+int Optimiseur::getNbIterations() {
+	return this->nbIterations;
+}
+
+double Optimiseur::getDuree() {
+	return (1000*this->duree)/CLOCKS_PER_SEC;
 }

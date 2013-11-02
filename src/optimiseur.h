@@ -1,36 +1,39 @@
 
-#include <queue>
+#include <list>
 
 #include "simulateur.h"
 #include "types.h"
 
+
 #ifndef OPTIMISEUR_H
 #define OPTIMISEUR_H
+
+using namespace std;
 
 class Optimiseur 
 
 {
 	
 	public:
-		Optimiseur(Vector x0, Simulateur *s, double epsilon);
+		Optimiseur(Simulateur *s);
 
-		virtual void run() = 0;
+		virtual bool run(Vector x0, double epsilon, int nbIterationsMax) = 0;
 		
-		std::queue<Vector> getPoints();
+		list<Vector> getPoints();
 		Vector getLastPoint();
+
+		int getNbIterations();
+		double getDuree();
 
 	
 	protected:
 		Simulateur *s;
-		Vector x0;
-		double epsilon;
+		int nbIterations;
+		double duree;
 
-		std::queue<Vector> points;
+		list<Vector> *points;
 		
 		double Wolfe(Vector &point, Vector &direction, double m1 = 0.1, double m2 = 0.9); 
-		double Goldstein(Vector &point, Vector &direction, double m1 = 0.1, double m2 = 0.9); 
-
-		
 };
 
 #endif

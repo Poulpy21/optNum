@@ -15,42 +15,57 @@ class Gradient : public Optimiseur
 	
 	public:
 		double t;
+		bool wolfe;
 
-		Gradient(Vector x0, double t, Simulateur *s, double epsilon) : Optimiseur(x0, s, epsilon) { 
-			
+		Gradient(Simulateur *s, double t) : Optimiseur(s) { 
 			this->t = t;
+			this->wolfe = (t <= 0);
 		};
 
-		void run() {
+		bool run(Vector x0, double epsilon, int nbIterationsMax) {
+
+			delete points;
+			points = new list<Vector>;
 		
+			nbIterations = 0;
+			clock_t start, end;
+			
+			start = clock();
+
+
 			TinyVector<int,2> dim = x0.shape();
 			Vector x(dim), g(dim), d(dim);
 			Vector *xx;
 
-			firstIndex i;
-			secondIndex j;
-			
 			x = x0;
 			g = s->getGradient(x);
 
-			while(sqrt(scalarProduct(g,transpose(g))) > epsilon) {
+			while(sqrt(scalarProduct(g,transpose(g))) > epsilon && nbIterations < nbIterationsMax) {
 				
 				xx = new Vector(dim);
 				*xx = x;
 
-				points.push(*xx);
+				points->push_back(*xx);
 				
 				g = s->getGradient(x);
 				d = -g;
 				
-				t = Wolfe(x, d); 
+				if (wolfe)
+					t = Wolfe(x, d); 
 				
 				x = x + t*d;
+
+				nbIterations++;
 			}	
 			
 			xx = new Vector(dim);
 			*xx = x;
-			points.push(*xx);
+			points->push_back(*xx);
+			
+			end = clock();
+			duree = (double) (end - start);
+
+			return (nbIterations <= nbIterationsMax);	
 		}
 
 		
