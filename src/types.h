@@ -8,8 +8,7 @@
 
 using namespace blitz;
 
-
-typedef Array<double,2> Matrix;
 typedef Array<double,2> Vector;
+typedef Array<double,2> Matrix;
 
 #endif

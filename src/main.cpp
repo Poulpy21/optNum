@@ -41,8 +41,8 @@ int main () {
 
 	rand_init();
 	
-	//graphicBench();
-	bench(10);
+	graphicBench();
+	//bench(10);
 
 	return 0;
 }
