@@ -53,8 +53,8 @@ void bench(int nbPoints) {
 	list<list<Vector>> *graphes = new list<list<Vector>>();
 
 	list<Vector> pts;
-	const double epsilon = 10e-9;
-	const double epsilonPoint = 10e-2;
+	const double epsilon = 10e-6;
+	const double epsilonPoint = 10e-3;
 	const int nbIterationsMax = 10e6;
 
 	Vector minPoint = Vector(2,1);
@@ -100,14 +100,14 @@ void graphicBench() {
 	char titre[100];
 	plot *graph;
 	
-	int fonction = 3 ;
+	int fonction = 1 ;
 
 	switch(fonction) {	
 		case 1: {
 			
 			sim = new Rosenbrock();
 			x0 = new Vector(2,1);
-			*x0 = -0.9, 1.2;
+			*x0 = -0.2, 1.2;
 
 			opt = new Gradient(sim, 10e-4);
 			opt->run(*x0, epsilon, nbIterationsMax);
@@ -115,7 +115,7 @@ void graphicBench() {
 			graph = new plot(sim, true, nbPoints,nbPoints, 20, -1.0,2.0,-1.0,2.0, opt->getPoints(), titre, opt->getNbIterations());
 			delete graph;
 
-			opt = new Gradient(sim, 10e-6);
+			opt = new Gradient(sim, 0);
 			opt->run(*x0, epsilon, nbIterationsMax);
 			sprintf(titre, "Methode du Gradient a pas constant  t=10e-6"); 
 			graph = new plot(sim, true, nbPoints,nbPoints, 20, -1.0,2.0,-1.0,2.0, opt->getPoints(), titre, opt->getNbIterations());
@@ -195,7 +195,7 @@ void graphicBench() {
 		case 3: {
 			sim = new Himmelblau();
 			x0 = new Vector(2,1);
-			*x0 = -2.5, -3.0;
+			*x0 = 1.0, 1.0;
 
 			opt = new Gradient(sim, 10e-4);
 			opt->run(*x0, epsilon, nbIterationsMax);

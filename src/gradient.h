@@ -15,11 +15,12 @@ class Gradient : public Optimiseur
 	
 	public:
 		double t;
-		bool wolfe;
+		bool wolfe, inv;
 
 		Gradient(Simulateur *s, double t) : Optimiseur(s) { 
 			this->t = t;
-			this->wolfe = (t <= 0);
+			this->wolfe = (t < 0);
+			this->inv = (t == 0);
 		};
 
 		bool run(Vector x0, double epsilon, int nbIterationsMax) {
@@ -52,6 +53,9 @@ class Gradient : public Optimiseur
 				
 				if (wolfe)
 					t = Wolfe(x, d); 
+
+				if (inv)
+					t = 0.001/(nbIterations+1);
 				
 				x = x + t*d;
 
