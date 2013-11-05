@@ -23,10 +23,10 @@ class Gradient : public Optimiseur
 			this->inv = (t == 0);
 		};
 
-		bool run(Vector x0, double epsilon, int nbIterationsMax) {
+		bool run(Vectorr x0, double epsilon, int nbIterationsMax) {
 
 			delete points;
-			points = new list<Vector>;
+			points = new list<Vectorr>;
 		
 			nbIterations = 0;
 			clock_t start, end;
@@ -35,15 +35,15 @@ class Gradient : public Optimiseur
 
 
 			TinyVector<int,2> dim = x0.shape();
-			Vector x(dim), g(dim), d(dim);
-			Vector *xx;
+			Vectorr x(dim), g(dim), d(dim);
+			Vectorr *xx;
 
 			x = x0;
 			g = s->getGradient(x);
 
 			while(sqrt(scalarProduct(g,transpose(g))) > epsilon && nbIterations < nbIterationsMax) {
 				
-				xx = new Vector(dim);
+				xx = new Vectorr(dim);
 				*xx = x;
 
 				points->push_back(*xx);
@@ -62,7 +62,7 @@ class Gradient : public Optimiseur
 				nbIterations++;
 			}	
 			
-			xx = new Vector(dim);
+			xx = new Vectorr(dim);
 			*xx = x;
 			points->push_back(*xx);
 			

@@ -7,16 +7,18 @@
 
 Optimiseur::Optimiseur(Simulateur *s) {
 	this->s = s;
-	this->points = new list<Vector>;
+	this->points = new list<Vectorr>;
 }
 
-double Optimiseur::Wolfe(Vector &x0, Vector &d, double m1, double m2) {
+double Optimiseur::Wolfe(Vectorr &x0, Vectorr &d, double m1, double m2) {
 
 	double t, tg, td;
 	double q0, dq0, q, dq;
-	
+
+	int j = 0;
+
 	TinyVector<int, 2> dim = x0.shape();
-	Vector x(dim);
+	Vectorr x(dim);
 	
 	t = 1.0;
 
@@ -26,8 +28,9 @@ double Optimiseur::Wolfe(Vector &x0, Vector &d, double m1, double m2) {
 	q0 = s->getValue(x0);
 	dq0 = scalarProduct(transpose(s->getGradient(x0)), d); 
 	
-	while(1) {
-		
+
+	while(j < 50) {
+
 		x = x0 + t * d;
 		
 		q = s->getValue(x);
@@ -47,18 +50,25 @@ double Optimiseur::Wolfe(Vector &x0, Vector &d, double m1, double m2) {
 			t = 10*tg;
 		else 
 			t = (tg + td)/2.0;
+
+		j++;
+	}
+	
+
+	if (t < 10e-12) {
+		return 1.0;
 	}
 
 	return t;	
 }
 
 
-std::list<Vector> Optimiseur::getPoints() {
+std::list<Vectorr> Optimiseur::getPoints() {
 
 	return *this->points;
 }
 
-Vector Optimiseur::getLastPoint() {
+Vectorr Optimiseur::getLastPoint() {
 
 	return this->points->back();
 }

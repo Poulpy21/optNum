@@ -16,10 +16,10 @@ class BFGS : public Optimiseur
 	public:
 		BFGS(Simulateur *s) : Optimiseur(s) { };
 
-		bool run(Vector x0, double epsilon, int nbIterationsMax) {
+		bool run(Vectorr x0, double epsilon, int nbIterationsMax) {
 
 			delete points;
-			points = new list<Vector>;
+			points = new list<Vectorr>;
 		
 			nbIterations = 0;
 			clock_t start, end;
@@ -28,7 +28,7 @@ class BFGS : public Optimiseur
 		
 
 			TinyVector<int,2> dim = x0.shape();
-			Vector xk(dim), xk1(dim), dk(dim), gk(dim), gk1(dim), sk(dim), yk(dim);
+			Vectorr xk(dim), xk1(dim), dk(dim), gk(dim), gk1(dim), sk(dim), yk(dim);
 			double tk;
 
 			firstIndex i;
@@ -41,7 +41,7 @@ class BFGS : public Optimiseur
 			
 			while(scalarProduct(gk,transpose(gk)) > epsilon && nbIterations < nbIterationsMax) {
 				
-				points->push_back(*new Vector(xk));
+				points->push_back(*new Vectorr(xk));
 
 				dk = - mult(W, gk);
 				
@@ -61,7 +61,7 @@ class BFGS : public Optimiseur
 				nbIterations++;
 			}	
 				
-			points->push_back(* new Vector(xk));
+			points->push_back(* new Vectorr(xk));
 			
 			end = clock();
 			duree = (double) (end - start);
@@ -70,7 +70,7 @@ class BFGS : public Optimiseur
 		}
 
 	private:
-		void inline computeMatrix(Matrix &W, Vector &s, Vector &y) {
+		void inline computeMatrix(Matrix &W, Vectorr &s, Vectorr &y) {
 
 			double p = scalarProduct(transpose(y), s); 
 			

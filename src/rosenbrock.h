@@ -8,7 +8,7 @@ class Rosenbrock : public virtual Simulateur
 
 	public:
 
-		double getValue(const Vector &x) {
+		double getValue(const Vectorr &x) {
 
 			double x0 = x(0,0);
 			double x1 = x(1,0);
@@ -16,9 +16,9 @@ class Rosenbrock : public virtual Simulateur
 			return pow((1-x0),2) + 100*pow((x1-x0*x0),2);
 		}
 
-		Vector getGradient(const Vector &x) {
+		Vectorr getGradient(const Vectorr &x) {
 
-			Vector v = Vector(2,1); 
+			Vectorr v = Vectorr(2,1); 
 			double x0 = x(0,0);
 			double x1 = x(1,0);
 
@@ -28,7 +28,7 @@ class Rosenbrock : public virtual Simulateur
 			return v;
 		}
 
-		Matrix getHessian(const Vector &x) {
+		Matrix getHessian(const Vectorr &x) {
 			Matrix H = Matrix(2,2);
 
 			double x0 = x(0,0);

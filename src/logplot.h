@@ -14,11 +14,11 @@ class LogPlot
 {
 	
 	public:
-		LogPlot(Simulateur *s, list<list<Vector>> graphList, char* titre);
+		LogPlot(Simulateur *s, list<list<Vectorr>> graphList, char* titre, char **label, int nlabel, bool logx);
 
 
 	private:
-		void generateData(PLFLT **iteration, PLFLT ***graphData, int *nbGraphe, int **nbPoints, PLFLT *xmax, PLFLT *ymin, PLFLT *ymax, Simulateur *s, list<list<Vector>> graphList);
+		void generateData(PLFLT **iteration, PLFLT ***graphData, int *nbGraphe, int **nbPoints, PLFLT *xmax, PLFLT *ymin, PLFLT *ymax, Simulateur *s, list<list<Vectorr>> graphList, bool logx);
 };
 
 	

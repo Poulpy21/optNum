@@ -15,9 +15,9 @@ using namespace blitz;
 class Simulateur {
 	
 	public:
-		virtual double getValue(const Vector &x) = 0;
-		virtual Vector getGradient(const Vector &x) = 0;
-		virtual Matrix getHessian(const Vector &x) = 0;
+		virtual double getValue(const Vectorr &x) = 0;
+		virtual Vectorr getGradient(const Vectorr &x) = 0;
+		virtual Matrix getHessian(const Vectorr &x) = 0;
 };
 	
 #endif

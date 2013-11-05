@@ -4,6 +4,8 @@
 #include <gsl/gsl_linalg.h>
 #include <gsl/gsl_cblas.h>
 
+using namespace blitz;
+
 void arrayInfo(const Matrix &a) {
 	
 	cout << "\na = " << a;
@@ -38,7 +40,7 @@ Matrix mult(const Matrix &A, const Matrix &B) {
 }
 
 
-double scalarProduct(const Vector &v1, const Vector &v2) {
+double scalarProduct(const Vectorr &v1, const Vectorr &v2) {
 	
 	Matrix m = Matrix(1,1);
 	m = mult(v1,v2);
@@ -46,9 +48,12 @@ double scalarProduct(const Vector &v1, const Vector &v2) {
 	return m(0,0);
 }
 
-Vector transpose(const Vector v) {
+Vectorr transpose(const Vectorr v) {
+	
+	Vectorr vec = Vectorr(v.shape());
+	vec = v;
 
-	return v.transpose(1,0);
+	return vec.transpose(1,0);
 }
 
 Matrix inverseMatrix(const Matrix &M) {

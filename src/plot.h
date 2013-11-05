@@ -20,7 +20,7 @@ class plot
 {
 	
 	public:
-		plot(Simulateur *s, bool logDraw, int ptx, int pty, int nlevel, float xmin, float xmax, float ymin, float ymax, list<Vector> optimPts, char* titre, int nbIterations);
+		plot(Simulateur *s, bool logDraw, int ptx, int pty, int nlevel, float xmin, float xmax, float ymin, float ymax, list<Vectorr> optimPts, char* titre, int nbIterations);
 
 	private:
 		Simulateur *s;
@@ -40,7 +40,7 @@ class plot
 		void averageNan();
 		void computeMinMax();
 		
-		void generateOptimPoints(list<Vector> pointList);
+		void generateOptimPoints(list<Vectorr> pointList);
 };
 
 	

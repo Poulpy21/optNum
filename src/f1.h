@@ -15,7 +15,7 @@ class F1 : public virtual Simulateur
 		this->n = n;
 		}
 
-		double getValue(const Vector &x) {
+		double getValue(const Vectorr &x) {
 			
 			double res = 0;
 			
@@ -25,9 +25,9 @@ class F1 : public virtual Simulateur
 			return res;
 		}
 
-		Vector getGradient(const Vector &x) {
+		Vectorr getGradient(const Vectorr &x) {
 
-			Vector v = Vector(n,1); 
+			Vectorr v = Vectorr(n,1); 
 
 			for (int i = 0; i < n; i++)
 				v(i,0) =  2*(i+1)*x(i,0);
@@ -35,7 +35,7 @@ class F1 : public virtual Simulateur
 			return v;
 		}
 
-		Matrix getHessian(const Vector &x) {
+		Matrix getHessian(const Vectorr &x) {
 			Matrix H = Matrix(n,n);
 				
 			firstIndex i;

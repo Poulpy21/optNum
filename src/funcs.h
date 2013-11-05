@@ -3,15 +3,16 @@
 #ifndef FUNCS_H
 #define FUNCS_H
 
-#include <blitz/array.h>
 #include "types.h"
+
+using namespace blitz;
 
 //A*B
 
 Matrix mult(const Matrix &A,  const Matrix &B);
-Vector transpose(const Vector v);
+Vectorr transpose(const Vectorr v);
 
-double scalarProduct(const Vector &v1, const Vector &v2);
+double scalarProduct(const Vectorr &v1, const Vectorr &v2);
 
 Matrix inverseMatrix(const Matrix &M);
 

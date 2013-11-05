@@ -17,10 +17,10 @@ class Optimiseur
 	public:
 		Optimiseur(Simulateur *s);
 
-		virtual bool run(Vector x0, double epsilon, int nbIterationsMax) = 0;
+		virtual bool run(Vectorr x0, double epsilon, int nbIterationsMax) = 0;
 		
-		list<Vector> getPoints();
-		Vector getLastPoint();
+		list<Vectorr> getPoints();
+		Vectorr getLastPoint();
 
 		int getNbIterations();
 		double getDuree();
@@ -31,9 +31,9 @@ class Optimiseur
 		int nbIterations;
 		double duree;
 
-		list<Vector> *points;
+		list<Vectorr> *points;
 		
-		double Wolfe(Vector &point, Vector &direction, double m1 = 0.1, double m2 = 0.9); 
+		double Wolfe(Vectorr &point, Vectorr &direction, double m1 = 0.1, double m2 = 0.9); 
 };
 
 #endif

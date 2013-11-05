@@ -6,9 +6,7 @@
 
 #define DOUBLE_INFINITY std::numeric_limits<double>::infinity()
 
-using namespace blitz;
-
-typedef Array<double,2> Vector;
-typedef Array<double,2> Matrix;
+typedef blitz::Array<double,2> Vectorr;
+typedef blitz::Array<double,2> Matrix;
 
 #endif

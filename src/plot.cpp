@@ -2,7 +2,7 @@
 
 #include "plot.h"
 
-plot::plot(Simulateur *s, bool logDraw, int ptx, int pty, int nlevel, float xmin, float xmax, float ymin, float ymax, list<Vector> optimPts, char *titre, int nbIterations) {
+plot::plot(Simulateur *s, bool logDraw, int ptx, int pty, int nlevel, float xmin, float xmax, float ymin, float ymax, list<Vectorr> optimPts, char *titre, int nbIterations) {
 
 	this->s = s;
 	this->logDraw = logDraw;
@@ -92,7 +92,7 @@ plot::plot(Simulateur *s, bool logDraw, int ptx, int pty, int nlevel, float xmin
 
 void plot::generateData() {
 
-	Vector v = Vector(2,1); 
+	Vectorr v = Vectorr(2,1); 
 
 	PLFLT *xi, *yi;
 
@@ -110,7 +110,7 @@ void plot::generateData() {
 			if (!logDraw)
 				z[i][j] = (PLFLT) s->getValue(v);
 			else
-				z[i][j] = (PLFLT) log(s->getValue(v));
+				z[i][j] = (PLFLT) log10(s->getValue(v));
 
 
 			if(i == 0 && j == 0) {
@@ -165,16 +165,16 @@ void plot::averageNan() {
 	}
 }
 
-void plot::generateOptimPoints(list<Vector> pointList) {
+void plot::generateOptimPoints(list<Vectorr> pointList) {
 
 	PLFLT *xi, *yi;
-	Vector v = Vector(2,1);
+	Vectorr v = Vectorr(2,1);
 
 	ptopt = pointList.size();
 	xi = xopt = new PLFLT[ptopt];
 	yi = yopt = new PLFLT[ptopt];
 	
-	for(list<Vector>::iterator it = pointList.begin(); it != pointList.end(); it++) {
+	for(list<Vectorr>::iterator it = pointList.begin(); it != pointList.end(); it++) {
 		v = *it;
 
 		*xi = (PLFLT) v(0,0);
